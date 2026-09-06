@@ -71,6 +71,7 @@ mazak/
 ├── eng.py        # английский словарь существ
 ├── app.py        # TUI клиент для общения
 └── README.md     # вы здесь
+└── reasoning.py # reasoning ,имитация Deepseek-r1
 ```
 ---
 

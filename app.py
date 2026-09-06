@@ -1,9 +1,10 @@
-from api import Mazak
+ffrom api import Mazak
 import time
 import random
 from textual_image.renderable import Image
 from rich.console import Console
 import json
+from reasoning import generate_reasoning
 
 
 
@@ -19,7 +20,7 @@ console = Console()
 
 if __name__ == "__main__":
     mazak = Mazak()
-    print("==============Mazak v0.0.2===================")
+    print(f"==============Mazak v{mazak.version}===================")
     console = Console()
     console.print(Image("logoo.png"))
     history = {
@@ -33,12 +34,18 @@ if __name__ == "__main__":
                 continue
             q = mazak.query(text)
             print("🤖 Mazak > думает...")
-            time.sleep(random.uniform(0.5, 5)) # имитируем думающий процесс
+            lines = generate_reasoning(text, history["messages"])
+            for line in lines:
+             for char in line:
+                print(char, end='', flush=True)
+                time.sleep(random.uniform(0.1, 0.3))
+            
+            print()
             print(f"🤖 Mazak > {q.answer}")
-            history["messages"].append({"message": text, "answer": q.answer})
+            history["messages"].append({"message": text, "answer": q.answer, "reasoning": lines})
             
 
 
     except KeyboardInterrupt:
-        print("\n==============Mazak v0.0.2===================")
+        print("\n==============Mazak v" + mazak.version + "===================")
         

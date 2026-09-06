@@ -1,4 +1,4 @@
-ffrom api import Mazak
+from api import Mazak
 import time
 import random
 from textual_image.renderable import Image
